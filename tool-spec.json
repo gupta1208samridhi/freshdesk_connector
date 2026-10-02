@@ -1,0 +1,40 @@
+{
+  "protocol": "Model Context Protocol (stdio, JSON-RPC 2.0)",
+  "tools": [
+    {
+      "name": "freshdesk_list_tickets",
+      "description": "List Freshdesk tickets. Read-only; returns allowlisted fields and bounded pagination.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page": {"type": "integer", "minimum": 1, "maximum": 10000, "default": 1},
+          "per_page": {"type": "integer", "minimum": 1, "maximum": 100, "default": 20}
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "freshdesk_get_ticket",
+      "description": "Get one Freshdesk ticket by numeric ID. Read-only; omits contact emails and attachments.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {"ticket_id": {"type": "integer", "minimum": 1}},
+        "required": ["ticket_id"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "freshdesk_search_tickets",
+      "description": "Search Freshdesk tickets using Freshdesk's native search query syntax. Read-only.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {"type": "string", "minLength": 1, "maxLength": 512},
+          "page": {"type": "integer", "minimum": 1, "maximum": 10000, "default": 1}
+        },
+        "required": ["query"],
+        "additionalProperties": false
+      }
+    }
+  ]
+}
